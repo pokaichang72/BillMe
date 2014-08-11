@@ -1,4 +1,5 @@
 class BillsController < ApplicationController
+  before_action :login_required
   before_action :set_bill, only: [:show, :edit, :update, :destroy]
 
   # GET /bills

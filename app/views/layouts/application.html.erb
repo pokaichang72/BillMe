@@ -13,12 +13,10 @@
               <li class="has-dropdown">
                 <a href="#">
                   <img src="http://placehold.it/500x500">
-                  Hello, User
+                  Hello, <%= current_user.name %>
                 </a>
                 <ul class="dropdown">
-                  <li><a href="#">Dashbord</a></li>
-                  <li><a href="#">Settings</a></li>
-                  <li><a href="#">Logout</a></li>
+                  <%= render 'layouts/menu' %>
                 </ul>
               </li>
             </ul>
@@ -29,17 +27,14 @@
     <div class="content main-content">
       <aside class="menu left-menu left-off-canvas-menu">
         <ul class="list off-canvas-list">
-          <li><label>BillMe</label></li>
-          <li><a href="#">Dashbord</a></li>
-          <li><a href="#">Settings</a></li>
-          <li><a href="#">Logout</a></li>
+          <%= render 'layouts/menu' %>
         </ul>
       </aside>
       <section class="main-section">
         <%= render 'layouts/alerts' %>
 
         <%= yield %>
-        
+
       </section>
     </div>
 

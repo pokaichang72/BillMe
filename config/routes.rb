@@ -1,7 +1,13 @@
 Rails.application.routes.draw do
 
-  devise_for :users
+  get 'welcome', to: 'pages#welcome'
+  # Users are not allowed to sign_in/sign_up directily with email and password
+  get 'users/sign_in', to: 'pages#welcome'
+  get 'users/sign_up', to: 'pages#welcome'
+
+  devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
   root 'bills#index'
+
 
   resources :bills
 
