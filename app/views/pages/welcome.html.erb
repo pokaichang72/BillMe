@@ -1,7 +1,10 @@
-<%= render 'layouts/alerts' %>
+<div style="position: fixed; width: 100%;">
+  <%= render 'layouts/alerts' %>
+</div>
 <div class="cct">
   <div class="ccc">
     <h1 id="title"><%= @app_name %></h1>
+    <p><%= @app_description %></p>
     <%= link_to "#{image_tag('login_with_facebook.png', class: 'fb_login_button')}".html_safe, user_omniauth_authorize_path(:facebook) %>
   </div>
 </div>

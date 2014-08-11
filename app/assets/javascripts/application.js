@@ -14,6 +14,10 @@
 //= require jquery_ujs
 //= require foundation
 //= require turbolinks
+//= require nprogress
+//= require nprogress-turbolinks
 //= require_tree .
 
-$(function(){ $(document).foundation(); });
+NProgress.configure({
+  showSpinner: false
+});

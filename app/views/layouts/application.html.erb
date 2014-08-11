@@ -2,7 +2,7 @@
   <div class="inner-wrap">
     <nav class="nav tab-bar">
       <section class="left-small">
-        <a class="left-off-canvas-toggle menu-icon" href="#"><span></span></a>
+        <a class="left-off-canvas-toggle menu-icon"><span></span></a>
       </section>
 
       <section class="middle tab-bar-section content">
@@ -11,11 +11,11 @@
           <section class="top-bar-section">
             <ul>
               <li class="has-dropdown">
-                <a href="#" data-dropdown="user_drop">
+                <a>
                   <img src="<%= current_user.avator_path(100) %>">
                   嗨，<%= current_user.name %>
                 </a>
-                <ul class="dropdown" id="user_drop">
+                <ul class="dropdown">
                   <%= render 'layouts/menu' %>
                 </ul>
               </li>

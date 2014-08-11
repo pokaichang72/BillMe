@@ -5,6 +5,11 @@
 //
 // *************************************
 
+/*
+ *= require nprogress
+ *= require nprogress-bootstrap
+ */
+
 // -------------------------------------
 //   Compass
 // -------------------------------------
@@ -48,6 +53,7 @@
 // -------------------------------------
 
 @import "modules/example";
+@import "modules/nprogress_settings";
 @import "modules/fb_login_button";
 
 // -------------------------------------
