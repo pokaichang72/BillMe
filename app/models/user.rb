@@ -4,6 +4,9 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :rememberable, :trackable, :validatable
   devise :omniauthable, :omniauth_providers => [:facebook]
 
+  has_many :charges, class_name: "Bill", foreign_key: "payee_id"
+  has_many :bills, class_name: "Bill", foreign_key: "payer_id"
+
   def avator_path(size)
     "https://graph.facebook.com/" + fbid.to_s + "/picture?width=" + size.to_s + "&height=" + size.to_s
   end

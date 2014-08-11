@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140811194007) do
+ActiveRecord::Schema.define(version: 20140811215326) do
 
   create_table "bills", force: true do |t|
     t.string   "name"
@@ -21,6 +21,8 @@ ActiveRecord::Schema.define(version: 20140811194007) do
     t.float    "total_price"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "payee_id"
+    t.integer  "payer_id"
   end
 
   create_table "users", force: true do |t|

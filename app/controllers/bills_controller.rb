@@ -5,7 +5,8 @@ class BillsController < ApplicationController
   # GET /bills
   # GET /bills.json
   def index
-    @bills = Bill.all
+    @bills = current_user.bills.all
+    @charges = current_user.charges.all
   end
 
   # GET /bills/1
@@ -15,7 +16,7 @@ class BillsController < ApplicationController
 
   # GET /bills/new
   def new
-    @bill = Bill.new
+    @bill = current_user.charges.new
   end
 
   # GET /bills/1/edit
@@ -25,7 +26,8 @@ class BillsController < ApplicationController
   # POST /bills
   # POST /bills.json
   def create
-    @bill = Bill.new(bill_params)
+    @bill = current_user.charges.build(bill_params)
+    @bill.payer = User.find(params[:bill][:payer])
 
     respond_to do |format|
       if @bill.save
