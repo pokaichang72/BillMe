@@ -6,14 +6,14 @@
       </section>
 
       <section class="middle tab-bar-section content">
-        <h1 class="title"><%= @app_name %></h1>
+        <h1 class="title"><%= link_to @app_name, root_path %></h1>
         <div class="top-bar" data-topbar data-options="is_hover: false">
           <section class="top-bar-section">
             <ul>
               <li class="has-dropdown">
                 <a href="#">
                   <img src="<%= current_user.avator_path(100) %>">
-                  Hello, <%= current_user.name %>
+                  嗨，<%= current_user.name %>
                 </a>
                 <ul class="dropdown">
                   <%= render 'layouts/menu' %>
@@ -42,9 +42,5 @@
 
   </div>
 </div>
-
-
-
-
 
 <% parent_layout "base" %>

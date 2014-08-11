@@ -17,6 +17,10 @@
 // 	line-height: $base-lineHeight;
 // }
 
+h1 > a {
+	color: inherit;
+}
+
 // -------------------------------------
 //   Block Content
 // -------------------------------------

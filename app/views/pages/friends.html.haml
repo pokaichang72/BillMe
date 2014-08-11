@@ -1,0 +1,20 @@
+%table
+  %thead
+    %tr
+      %th
+      %th 姓名
+      %th 他欠你
+      %th 你欠他
+      %th 動作
+  %tbody
+    - @friends.each do |friend|
+      %tr
+        %td= image_tag get_avator_url(friend['id'], 50)
+        %td= friend['name']
+        %td NT$
+        %td NT$
+        %td
+          = link_to '催討欠款', '', class: 'button tiny disabled'
+          = link_to '戳戳', '', class: 'button tiny disabled'
+
+

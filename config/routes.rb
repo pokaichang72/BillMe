@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
 
   get 'welcome', to: 'pages#welcome'
+  get 'friends', to: 'pages#friends'
   # Users are not allowed to sign_in/sign_up directily with email and password
   get 'users/sign_in', to: 'pages#welcome'
   get 'users/sign_up', to: 'pages#welcome'
