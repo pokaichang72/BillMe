@@ -38,3 +38,23 @@ gem 'spring',        group: :development
 # Use debugger
 # gem 'debugger', group: [:development, :test]
 
+gem 'settingslogic', '2.0.9'
+
+gem 'foundation-rails', '5.3.3.0'
+
+gem 'devise', '3.2.4'
+gem 'omniauth-facebook', '2.0.0'
+
+gem 'simple_form', '3.0.2'
+gem 'seo_helper', '1.0.2'
+gem 'open_graph_helper', '0.2.0'
+
+group :development do
+  gem 'better_errors', '1.1.0'
+  gem 'binding_of_caller', '0.7.2'
+end
+
+# For Heroku assets
+gem 'rails_12factor', group: :production
+
+ruby "2.0.0"
