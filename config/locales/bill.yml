@@ -1,0 +1,6 @@
+zh-TW:
+  activerecord:
+    attributes:
+      bill:
+        name: "項目名稱"
+        description: "描述"
