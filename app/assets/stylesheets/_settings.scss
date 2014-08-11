@@ -21,6 +21,21 @@ $base-background: white;
 $base-color: #222222;
 $base-link-color: #0053c9;
 
+$black: #000;
+$white: #e7e7e7;
+$blue: hsl(191, 100%, 32%);
+
+$primary-color: $blue;
+$secondary-color: $white;
+$alert-color: #f10015;
+$success-color: #299525;
+$warning-color: #f0d024;
+$info-color: #22adcd;
+
+$tabbar-bg: $black;
+$off-canvas-bg: $black;
+$off-canvas-label-bg: lighten($black, 8%);
+
 // ----- Base Borders & Box Shadows ----- //
 
 $base-border: 1px solid $base-color;
@@ -36,6 +51,7 @@ $base-lineHeight: 1.5;
 // ----- Base Layout ----- //
 
 $base-whitespace: 20px;
+$base-content-max-width: 70rem;
 
 // ----- Content ----- //
 
@@ -43,4 +59,6 @@ $c-header-fontFamily: sans-serif;
 
 // ----- Layout ----- //
 
+$topbar-height: 60px;
+$tabbar-height: 4rem;
 $l-maxWidth: 980px;

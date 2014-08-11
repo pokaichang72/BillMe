@@ -6,65 +6,229 @@
 // *************************************
 
 // -------------------------------------
+//   Layout
+// -------------------------------------
+
+.off-canvas-wrap, .inner-wrap {
+	min-height: 100%;
+	position: absolute;
+}
+
+.main-section {
+	padding: 0 12px;
+}
+
+.nav {
+
+	h1 {
+		float: left;
+	}
+}
+
+.top-bar {
+	display: inline-block;
+	height: 100%;
+	float: right;
+	background-color: $black;
+
+	section, ul, li, a {
+		position: relative;
+		height: 100%;
+	}
+
+	.has-dropdown {
+		padding-top: 1px;
+
+		img {
+			max-height: 64%;
+			@include border-radius(100px);
+			margin-right: 7px;
+		}
+	}
+
+	.top-bar-section ul li {
+		background: transparent;
+	}
+
+	li:not(.has-form).has-dropdown > a:not(.button) {
+		background: transparent;
+	}
+}
+
+.left-off-canvas-menu {
+
+	ul.off-canvas-list li a {
+		@include transition-property(color, background);
+		@include transition-duration(.1s);
+
+		&:hover {
+			background: $primary-color;
+			color: $white;
+		}
+	}
+}
+
+@media #{$small-only} {
+
+	.top-bar {
+		display: none;
+	}
+
+	.nav {
+
+		h1 {
+			float: none;
+		}
+
+		.left-small {
+			display: block;
+		}
+	}
+}
+
+@media #{$medium-up} {
+	.tab-bar-section.middle {
+		left: 4rem;
+		right: 0;
+	}
+}
+
+@media #{$large-up} {
+
+	.move-right > .inner-wrap, .left-off-canvas-menu {
+		@include transform(none);
+	}
+
+	.left-off-canvas-menu {
+		background: transparent;
+		overflow: visible;
+
+		ul.off-canvas-list li label {
+			background: transparent;
+			border-top: none;
+		}
+
+		ul.off-canvas-list li a {
+			color: $base-color;
+			border-top: 1px solid rgba(0,0,0, .1);
+			border-bottom: none;
+		}
+
+		&::before {
+			content: " ";
+			display: block;
+			position: absolute;
+			height: 99999px;
+			width: 100%;
+			border-left: 1px solid rgba(0,0,0, .1);
+			border-right: 1px solid rgba(0,0,0, .1);
+		}
+	}
+
+	.nav {
+
+		.left-small {
+			display: none;
+		}
+
+		.middle {
+			left: 0;
+			right: 0;
+			width: 100%;
+		}
+	}
+
+	.main-content {
+
+		> * {
+			position: relative;
+		}
+	}
+
+	.main-section {
+		float: right;
+		width: 82%;
+	}
+
+	.left-menu {
+		float: left;
+		width: 18%;
+		text-align: left;
+	}
+}
+
+// -------------------------------------
 //   Bucket
 // -------------------------------------
 
-.l-bucket {}
+// .l-bucket {}
 
 // -------------------------------------
 //   Card
 // -------------------------------------
 
-.l-card {}
+// .l-card {}
 
 // -------------------------------------
 //   Cell
 // -------------------------------------
 
-%l-cell, .l-cell {
-	margin: 0 auto;
-	max-width: rem($l-maxWidth);
-	padding: 0 rem(60px);
-}
+// %l-cell, .l-cell {
+// 	margin: 0 auto;
+// 	max-width: rem($l-maxWidth);
+// 	padding: 0 rem(60px);
+// }
 
 // -------------------------------------
 //   Grid
 // -------------------------------------
 
-.l-grid {}
+// .l-grid {}
 
-.l-grid-box {}
+// .l-grid-box {}
+
+// -------------------------------------
+//   Content
+// -------------------------------------
+
+.content {
+	max-width: $base-content-max-width;
+	margin: auto;
+}
 
 // -------------------------------------
 //   Row
 // -------------------------------------
 
-.l-row {}
+.row {
+	max-width: $base-content-max-width;
+	margin-bottom: 20px;
+}
 
 // -------------------------------------
 //   Utilities
 // -------------------------------------
 
-%l-block, .l-block {
-	display: block;
-}
+// %l-block, .l-block {
+// 	display: block;
+// }
 
-%l-condense, .l-condense {
-	margin-bottom: rem($base-whitespace / 2);
-}
+// %l-condense, .l-condense {
+// 	margin-bottom: rem($base-whitespace / 2);
+// }
 
-%l-pullLeft, .l-pullLeft {
-	float: left;
-}
+// %l-pullLeft, .l-pullLeft {
+// 	float: left;
+// }
 
-%l-pullRight, .l-pullRight {
-	float: right;
-}
+// %l-pullRight, .l-pullRight {
+// 	float: right;
+// }
 
-%l-space, .l-space {
-	margin-bottom: rem($base-whitespace);
-}
+// %l-space, .l-space {
+// 	margin-bottom: rem($base-whitespace);
+// }
 
-%l-xspace, .l-xspace {
-	margin-bottom: rem($base-whitespace * 2);
-}
+// %l-xspace, .l-xspace {
+// 	margin-bottom: rem($base-whitespace * 2);
+// }
