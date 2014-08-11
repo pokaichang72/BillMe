@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140811175744) do
+ActiveRecord::Schema.define(version: 20140811194007) do
 
   create_table "bills", force: true do |t|
     t.string   "name"
@@ -39,6 +39,7 @@ ActiveRecord::Schema.define(version: 20140811175744) do
     t.string   "provider"
     t.string   "fbid"
     t.string   "name"
+    t.string   "fbtoken"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true
