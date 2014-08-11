@@ -8,6 +8,13 @@ Bundler.require(*Rails.groups)
 
 module BillMe
   class Application < Rails::Application
+
+    if File.file?("#{Rails.root.to_s}/config/database.yml")
+      self.paths['config/database'] = 'config/database.yml'
+    else
+      self.paths['config/database'] = 'config/database.yml.example'
+    end
+
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
