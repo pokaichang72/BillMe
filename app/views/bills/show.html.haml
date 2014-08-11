@@ -1,0 +1,21 @@
+%p#notice= notice
+
+%p
+  %b Name:
+  = @bill.name
+%p
+  %b Description:
+  = @bill.description
+%p
+  %b Unit price:
+  = @bill.unit_price
+%p
+  %b Quantity:
+  = @bill.quantity
+%p
+  %b Total price:
+  = @bill.total_price
+
+= link_to 'Edit', edit_bill_path(@bill)
+\|
+= link_to 'Back', bills_path
