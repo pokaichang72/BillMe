@@ -48,6 +48,8 @@ gem 'foundation-rails', '5.3.3.0'
 gem 'devise', '3.2.4'
 gem 'omniauth-facebook', '2.0.0'
 
+gem 'koala', '1.10.0'
+
 gem 'simple_form', '3.0.2'
 gem 'seo_helper', '1.0.2'
 gem 'open_graph_helper', '0.2.0'

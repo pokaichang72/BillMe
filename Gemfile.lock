@@ -27,6 +27,7 @@ GEM
       minitest (~> 5.1)
       thread_safe (~> 0.1)
       tzinfo (~> 1.1)
+    addressable (2.3.6)
     arel (5.0.1.20140414130214)
     bcrypt (3.1.7)
     better_errors (1.1.0)
@@ -83,6 +84,10 @@ GEM
       thor (>= 0.14, < 2.0)
     json (1.8.1)
     jwt (1.0.0)
+    koala (1.10.0)
+      addressable
+      faraday
+      multi_json
     mail (2.5.4)
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
@@ -192,6 +197,7 @@ DEPENDENCIES
   haml-rails (= 0.5.3)
   jbuilder (~> 2.0)
   jquery-rails
+  koala (= 1.10.0)
   omniauth-facebook (= 2.0.0)
   open_graph_helper (= 0.2.0)
   pg
