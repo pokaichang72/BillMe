@@ -8,6 +8,7 @@
   <%= render_page_description_meta_tag %>
   <%= render_page_keywords_meta_tag %>
   <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
 </head>
 <body>
@@ -16,8 +17,6 @@
   <![endif]-->
 
   <%= yield %>
-
-  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
 
   <script>
     (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=

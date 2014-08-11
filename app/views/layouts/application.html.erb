@@ -11,11 +11,11 @@
           <section class="top-bar-section">
             <ul>
               <li class="has-dropdown">
-                <a href="#">
+                <a href="#" data-dropdown="user_drop">
                   <img src="<%= current_user.avator_path(100) %>">
                   嗨，<%= current_user.name %>
                 </a>
-                <ul class="dropdown">
+                <ul class="dropdown" id="user_drop">
                   <%= render 'layouts/menu' %>
                 </ul>
               </li>
