@@ -40,6 +40,8 @@ gem 'spring',        group: :development
 
 gem 'settingslogic', '2.0.9'
 
+gem 'haml'
+gem 'haml-rails', '0.5.3'
 gem 'foundation-rails', '5.3.3.0'
 
 gem 'devise', '3.2.4'

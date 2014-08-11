@@ -57,6 +57,13 @@ GEM
     foundation-rails (5.3.3.0)
       railties (>= 3.1.0)
       sass (>= 3.2.0)
+    haml (4.0.5)
+      tilt
+    haml-rails (0.5.3)
+      actionpack (>= 4.0.1)
+      activesupport (>= 4.0.1)
+      haml (>= 3.1, < 5.0)
+      railties (>= 4.0.1)
     hashie (3.2.0)
     hike (1.2.3)
     i18n (0.6.11)
@@ -172,6 +179,8 @@ DEPENDENCIES
   coffee-rails (~> 4.0.0)
   devise (= 3.2.4)
   foundation-rails (= 5.3.3.0)
+  haml
+  haml-rails (= 0.5.3)
   jbuilder (~> 2.0)
   jquery-rails
   omniauth-facebook (= 2.0.0)
