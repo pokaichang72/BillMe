@@ -23,18 +23,35 @@
           %th 單價
           %th 數量
           %th 金額
-      %tbody
-        %tr
+      %tbody#bill_table.bill_table
+        %tr#bill_row_0.bill_row
           %td
-            = f.text_field :name
-            = f.text_area :description
-          %td= f.text_field :unit_price
-          %td= f.number_field :quantity
-          %td= f.text_field :total_price
+            %input.name{name: "bill[0][name]", type: "text"}
+            %textarea.description{name: "bill[0][description]"}
+          %td
+            %input.unit_price{name: "bill[0][unit_price]", type: "text"}
+          %td
+            %input.quantity{name: "bill[0][quantity]", type: "text", value: 1}
+          %td
+            NT$
+            %span.total_price
+            %input.total_price{name: "bill[0][total_price]", type: "hidden"}
+            .row_action
+              .delete_row_button -
+              .add_row_button{onclick: 'addRow();'} +
+        %tr#new_row.total_row
+          %td
+          %td
+          %td
+          %td
+            .subtotal_c
+              總計：NT$
+              %span.subtotal 23
 
 
 
-
+    %input#bills_c{name: "bill[bills]", type: "hidden", value: 1}
+    %input#payers_c{name: "bill[payers]", type: "hidden", value: 0}
     = f.text_field :payer
   .actions
     = f.submit 'Save'
@@ -47,9 +64,37 @@
     return '<img src="https://graph.facebook.com/' + friend.id + '/picture?width=50&height=50"> ' + friend.text;
   }
   $("#payers").select2({
-    placeholder: "選擇付款人",
+    placeholder: "付款人",
     formatResult: format,
     formatSelection: format,
   });
+
+
+  function addRow() {
+    $(".bill_row").clone().attr("id","newRowId").appendTo("#bill_table");
+    $("#new_row").appendTo("#bill_table");
+    updateFrom();
+  }
+
+  function updateFrom() {
+    $('.delete_row_button').bind('click', function(){ $(this).parent().parent().parent().remove(); updateFrom(); });
+    $('#bills_c').val($('.bill_row').length);
+    if ($('#bills_c').val() == 1) {
+      $('.delete_row_button').addClass('hidden');
+    } else {
+      $('.delete_row_button').removeClass('hidden');
+    }
+    i = 0;
+    $(".bill_row").each(function(){
+      $(this).attr('id', 'bill_row_' + i);
+      $(this).children('td').children('.name').attr('name', 'bill[' + i + '][name]');
+      $(this).children('td').children('.description').attr('name', 'bill[' + i + '][description]');
+      $(this).children('td').children('.unit_price').attr('name', 'bill[' + i + '][unit_price]');
+      $(this).children('td').children('.quantity').attr('name', 'bill[' + i + '][quantity]');
+      $(this).children('td').children('.total_price').attr('name', 'bill[' + i + '][total_price]');
+      i++;
+    });
+  }
+  updateFrom();
 
 = link_to 'Back', bills_path

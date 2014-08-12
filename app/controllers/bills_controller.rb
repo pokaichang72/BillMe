@@ -30,6 +30,7 @@ class BillsController < ApplicationController
   def create
     @bill = current_user.charges.build(bill_params)
     @bill.payer = User.find(params[:bill][:payer])
+    pause
 
     respond_to do |format|
       if @bill.save
