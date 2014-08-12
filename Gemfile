@@ -47,6 +47,7 @@ gem 'foundation-rails', '5.3.3.0'
 
 gem 'modernizr-rails'
 gem 'nprogress-rails', '0.1.3.1'
+gem 'select2-rails', '3.5.9'
 
 gem 'devise', '3.2.4'
 gem 'omniauth-facebook', '2.0.0'

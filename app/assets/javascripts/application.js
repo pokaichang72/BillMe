@@ -13,6 +13,8 @@
 //= require jquery
 //= require jquery_ujs
 //= require foundation
+//= require select2
+//= require select2_locale_"zh-TW"
 //= require turbolinks
 //= require nprogress
 //= require nprogress-turbolinks

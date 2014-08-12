@@ -6,8 +6,7 @@
 // *************************************
 
 /*
- *= require nprogress
- *= require nprogress-bootstrap
+ *= require select2
  */
 
 // -------------------------------------
@@ -54,6 +53,8 @@
 
 @import "modules/example";
 @import "modules/nprogress_settings";
+@import "modules/select_payers";
+@import "modules/paper";
 @import "modules/fb_login_button";
 
 // -------------------------------------

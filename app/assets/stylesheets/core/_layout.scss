@@ -31,7 +31,6 @@
 
 .container {
 	@include clearfix;
-	overflow: hidden;
 	min-height: 100vh;
 	position: relative;
 }
@@ -123,6 +122,10 @@
 }
 
 @media #{$large-up} {
+
+	.container {
+		overflow: hidden;
+	}
 
 	.move-right > .inner-wrap, .left-off-canvas-menu {
 		@include transform(none);

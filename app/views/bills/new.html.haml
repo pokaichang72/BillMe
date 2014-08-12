@@ -1,5 +1,55 @@
 %h1 New bill
 
-= render 'form'
+= form_for @bill do |f|
+  - if @bill.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@bill.errors.count, "error")} prohibited this bill from being saved:"
+      %ul
+        - @bill.errors.full_messages.each do |msg|
+          %li= msg
+  .paper
+    .select-payers
+      %select#payers.placeholder{name: "payers", multiple: "multiple", style: "width:300px"}
+        - @friends.each do |friend|
+          %option{value: "#{friend['id']}"}= friend['name']
+    %table
+      %col{width: "70"}
+      %col{width: "10"}
+      %col{width: "10"}
+      %col{width: "10"}
+      %thead
+        %tr
+          %th 項目
+          %th 單價
+          %th 數量
+          %th 金額
+      %tbody
+        %tr
+          %td
+            = f.text_field :name
+            = f.text_area :description
+          %td= f.text_field :unit_price
+          %td= f.number_field :quantity
+          %td= f.text_field :total_price
+
+
+
+
+    = f.text_field :payer
+  .actions
+    = f.submit 'Save'
+
+
+:javascript
+  function format(friend) {
+  console.log(friend)
+    if (!friend.id) return id.text;
+    return '<img src="https://graph.facebook.com/' + friend.id + '/picture?width=50&height=50"> ' + friend.text;
+  }
+  $("#payers").select2({
+    placeholder: "選擇付款人",
+    formatResult: format,
+    formatSelection: format,
+  });
 
 = link_to 'Back', bills_path

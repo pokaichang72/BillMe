@@ -1,0 +1,125 @@
+// *************************************
+//
+//   Module
+//   -> This is an example module
+//
+// *************************************
+
+.paper {
+	position: relative;
+	background: #fafafa;
+	padding: 30px;
+	@include box-shadow(0 0 50px rgba(0,0,0, .1) inset,
+	                    0 1px 5px rgba(0,0,0, .32)
+	                    );
+
+	.select-payers {
+		&::before {
+			content: "TO_ ";
+			font-size: 28px;
+		}
+	}
+
+	table, thead {
+		background: transparent;
+		border: none;
+		width: 100%;
+	}
+
+	th {
+	    border-bottom: 1px solid #777;
+	}
+
+	td {
+	    border-bottom: 1px dotted #999;
+	}
+
+	th, td {
+		text-align: right;
+		max-width: 12px;
+	}
+
+	th:first-child, td:first-child {
+		text-align: left;
+		max-width: auto;
+	}
+}
+
+// -------------------------------------
+//   Modifiers
+// -------------------------------------
+
+.paper--1 {
+
+
+}
+
+.paper--2 {
+	@include box-shadow(0 0 50px rgba(0,0,0, .1) inset,
+	                    0 1px 5px rgba(0,0,0, .32),
+	                    10px -10px 0 0 #ededed,
+	                    10px -9px 5px 0 rgba(0,0,0, .32),
+	                    20px -20px 0 0 #ededed,
+	                    20px -19px 5px 0 rgba(0,0,0, .32)
+	                    );
+}
+
+.paper--3 {
+	@include box-shadow(0 0 50px rgba(0,0,0, .1) inset,
+	                    0 1px 5px rgba(0,0,0, .32),
+	                    10px -10px 0 0 #ededed,
+	                    10px -9px 5px 0 rgba(0,0,0, .32),
+	                    20px -20px 0 0 #ededed,
+	                    20px -19px 5px 0 rgba(0,0,0, .32),
+	                    30px -30px 0 0 #ededed,
+	                    30px -29px 5px 0 rgba(0,0,0, .32)
+	                    );
+}
+
+.paper--4 {
+	@include box-shadow(0 0 50px rgba(0,0,0, .1) inset,
+	                    0 1px 5px rgba(0,0,0, .32),
+	                    10px -10px 0 0 #ededed,
+	                    10px -9px 5px 0 rgba(0,0,0, .32),
+	                    20px -20px 0 0 #ededed,
+	                    20px -19px 5px 0 rgba(0,0,0, .32),
+	                    30px -30px 0 0 #ededed,
+	                    30px -29px 5px 0 rgba(0,0,0, .32),
+	                    40px -40px 0 0 #ededed,
+	                    40px -39px 5px 0 rgba(0,0,0, .32)
+	                    );
+}
+
+.paper--5 {
+	@include box-shadow(0 0 50px rgba(0,0,0, .1) inset,
+	                    0 1px 5px rgba(0,0,0, .32),
+	                    10px -10px 0 0 #ededed,
+	                    10px -9px 5px 0 rgba(0,0,0, .32),
+	                    20px -20px 0 0 #ededed,
+	                    20px -19px 5px 0 rgba(0,0,0, .32),
+	                    30px -30px 0 0 #ededed,
+	                    30px -29px 5px 0 rgba(0,0,0, .32),
+	                    40px -40px 0 0 #ededed,
+	                    40px -39px 5px 0 rgba(0,0,0, .32)
+	                    );
+}
+
+// -------------------------------------
+//   States
+// -------------------------------------
+
+// .is-module-state
+
+// -------------------------------------
+//   Context
+// -------------------------------------
+
+// .has-module
+
+// -------------------------------------
+//   Submodules
+// -------------------------------------
+
+// ----- Submodule ----- //
+
+// .module-submodule

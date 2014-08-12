@@ -17,6 +17,8 @@ class BillsController < ApplicationController
   # GET /bills/new
   def new
     @bill = current_user.charges.new
+    @graph = Koala::Facebook::API.new(current_user.fbtoken)
+    @friends = @graph.get_connections("me", "friends")
   end
 
   # GET /bills/1/edit

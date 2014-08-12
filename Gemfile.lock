@@ -153,6 +153,8 @@ GEM
     sdoc (0.4.1)
       json (~> 1.7, >= 1.7.7)
       rdoc (~> 4.0)
+    select2-rails (3.5.9)
+      thor (~> 0.14)
     seo_helper (1.0.2)
     settingslogic (2.0.9)
     simple_form (3.0.2)
@@ -209,6 +211,7 @@ DEPENDENCIES
   rails_12factor
   sass-rails (~> 4.0.3)
   sdoc (~> 0.4.0)
+  select2-rails (= 3.5.9)
   seo_helper (= 1.0.2)
   settingslogic (= 2.0.9)
   simple_form (= 3.0.2)
