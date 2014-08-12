@@ -23,6 +23,19 @@
 	}
 }
 
+.off-canvas-wrap {
+	overflow: auto;
+	overflow-y: auto;
+	overflow-x: hidden;
+}
+
+.container {
+	@include clearfix;
+	overflow: hidden;
+	min-height: 100vh;
+	position: relative;
+}
+
 .off-canvas-wrap, .inner-wrap {
 	min-height: 100%;
 	position: absolute;
@@ -33,6 +46,7 @@
 }
 
 .nav {
+	z-index: 100;
 
 	h1 {
 		float: left;
@@ -69,7 +83,8 @@
 	}
 }
 
-.left-off-canvas-menu {
+.left-menu {
+	z-index: 10;
 
 	ul.off-canvas-list li a {
 		@include transition-property(color, background);
@@ -134,8 +149,23 @@
 			position: absolute;
 			height: 99999px;
 			width: 100%;
+			left: 0;
+			top: -30px;
 			border-left: 1px solid rgba(0,0,0, .1);
 			border-right: 1px solid rgba(0,0,0, .1);
+		}
+
+		&::after {
+			content: " ";
+			display: block;
+			position: absolute;
+			height: 99999px;
+			width: 99999px;
+			top: -100px;
+			right: 0;
+			@include box-shadow(0 0 30px rgba(0,0,0, .1) inset);
+			z-index: 11;
+			pointer-events: none;
 		}
 	}
 

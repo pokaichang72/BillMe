@@ -1,45 +1,45 @@
 <div class="off-canvas-wrap" data-offcanvas>
   <div class="inner-wrap">
-    <nav class="nav tab-bar">
-      <section class="left-small">
-        <a class="left-off-canvas-toggle menu-icon"><span></span></a>
-      </section>
+    <div class="container">
+      <nav class="nav tab-bar">
+        <section class="left-small">
+          <a class="left-off-canvas-toggle menu-icon"><span></span></a>
+        </section>
 
-      <section class="middle tab-bar-section content">
-        <h1 class="title"><%= link_to @app_name, root_path %></h1>
-        <div class="top-bar" data-topbar data-options="is_hover: false">
-          <section class="top-bar-section">
-            <ul>
-              <li class="has-dropdown">
-                <a>
-                  <img src="<%= current_user.avator_path(100) %>">
-                  嗨，<%= current_user.name %>
-                </a>
-                <ul class="dropdown">
-                  <%= render 'layouts/menu' %>
-                </ul>
-              </li>
-            </ul>
-          </section>
-        </div>
-      </section>
-    </nav>
-    <div class="content main-content">
-      <aside class="menu left-menu left-off-canvas-menu">
-        <ul class="list off-canvas-list">
-          <%= render 'layouts/menu' %>
-        </ul>
-      </aside>
-      <section class="main-section">
-        <%= render 'layouts/alerts' %>
+        <section class="middle tab-bar-section content">
+          <h1 class="title"><%= link_to @app_name, root_path %></h1>
+          <div class="top-bar" data-topbar data-options="is_hover: false">
+            <section class="top-bar-section">
+              <ul>
+                <li class="has-dropdown">
+                  <a>
+                    <img src="<%= current_user.avator_path(100) %>">
+                    嗨，<%= current_user.name %>
+                  </a>
+                  <ul class="dropdown">
+                    <%= render 'layouts/menu' %>
+                  </ul>
+                </li>
+              </ul>
+            </section>
+          </div>
+        </section>
+      </nav>
+      <div class="content main-content">
+        <aside class="menu left-menu left-off-canvas-menu">
+          <ul class="list off-canvas-list">
+            <%= render 'layouts/menu' %>
+          </ul>
+        </aside>
+        <section class="main-section">
+          <%= render 'layouts/alerts' %>
 
-        <%= yield %>
+          <%= yield %>
 
-      </section>
+        </section>
+      </div>
+      <a class="exit-off-canvas"></a>
     </div>
-
-  <a class="exit-off-canvas"></a>
-
   </div>
 </div>
 
