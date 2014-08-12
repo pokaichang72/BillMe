@@ -9,19 +9,36 @@
 	position: relative;
 	background: #fafafa;
 	padding: 30px;
+	margin-bottom: 20px;
 	@media #{$small-only} { padding: 10px; }
 	@include box-shadow(0 0 50px rgba(0,0,0, .1) inset,
 	                    0 1px 5px rgba(0,0,0, .32)
 	                    );
 
 	.select-payers {
+		position: relative;
+		margin-bottom: 12px;
+		padding: 4px;
+
 		&::before {
 			content: "TO_ ";
 			font-size: 28px;
+			line-height: 40px;
+			position: relative;
+			display: inline-block;
+			vertical-align: bottom;
+			@include opacity(.7);
 		}
 
-		* {
+		> * {
 			max-width: 99%;
+		}
+
+		.select2-choices {
+			border-top: none;
+			border-right: none;
+			border-left: none;
+			background: transparent;
 		}
 	}
 
@@ -56,6 +73,7 @@
 	th, td {
 		text-align: right;
 		max-width: 12px;
+		vertical-align: top;
 	}
 
 	th:first-child, td:first-child {
@@ -65,6 +83,37 @@
 
 	input {
 		background-color: transparent;
+		border-top: none;
+		border-right: none;
+		border-left: none;
+		@include box-shadow(0 -4px 8px -8px rgba(0, 0, 0, .9) inset);
+		margin: 0;
+		padding: 2px;
+		height: auto;
+	}
+
+	label {
+		display: inline-block;
+	}
+
+	input.unit_price, input.quantity {
+		text-align: right;
+	}
+
+	textarea {
+		resize: none;
+		display: inline;
+		font-style: italic;
+		background-color: transparent;
+		border: none;
+		box-shadow: none;
+		font-size: 10px;
+		margin: 0;
+		height: auto;
+		line-height: 10px;
+		min-height: 24px;
+		overflow: hidden;
+		padding: 8px 7px 2px;
 	}
 
 	.row_action {
@@ -73,25 +122,35 @@
 		right: 0;
 		bottom: 0;
 		padding: 7px;
+		padding-bottom: 0;
 	}
 
 	.delete_row_button, .add_row_button {
 		display: inline-block;
 		width: 30px;
 		height: 30px;
-		line-height: 22px;
+		line-height: 30px;
 		font-size: 24px;
 		text-align: center;
-		border: 1px solid rgba(0,0,0, .5);
-		@include border-radius(100px);
+		// border: 1px solid rgba(0,0,0, .5);
+		// @include border-radius(100px);
 		margin-left: 7px;
+		@media #{$small-only} { margin-left: 10px; }
 		cursor: pointer;
-		@include opacity(.8);
+		@include opacity(.5);
+		@include transition-property(color, background-color, opacity);
+		@include transition-duration(.1s);
+		background-color: $white;
+		color: $black;
 
 		&:hover {
 			@include opacity(1);
 			background-color: $black;
 			color: $white;
+			@media #{$small-only} {
+				background-color: $white;
+				color: $black;
+			}
 		}
 	}
 

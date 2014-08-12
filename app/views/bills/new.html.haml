@@ -9,14 +9,21 @@
           %li= msg
   .paper
     .select-payers
-      %select#payers.placeholder{name: "payers", multiple: "multiple", style: "width:300px"}
+      %select#payers.placeholder{name: "payers[]", multiple: "multiple", style: "min-width: 300px;", size: 99999, required: "required"}
         - @friends.each do |friend|
           %option{value: "#{friend['id']}"}= friend['name']
+    .split
+      %label
+        %input.split{type: "radio", name: "split", value: "no-split"} 個別支付
+      %label
+        %input.split{type: "radio", name: "split", value: "split", checked: "true"} 均分
+      %label
+        %input.add_me{type: "checkbox", name: "add-me", value: "yes"} 算我一份
     %table
+      %col{width: "200"}
+      %col{width: "100"}
       %col{width: "70"}
-      %col{width: "10"}
-      %col{width: "10"}
-      %col{width: "10"}
+      %col{width: "80"}
       %thead
         %tr
           %th 項目
@@ -26,12 +33,13 @@
       %tbody#bill_table.bill_table
         %tr#bill_row_0.bill_row
           %td
-            %input.name{name: "bill[0][name]", type: "text"}
-            %textarea.description{name: "bill[0][description]"}
+            %input.name{name: "bill[0][name]", type: "text", placeholder: "項目名稱", required: "required"}
+            %textarea.description{name: "bill[0][description]", placeholder: "描述、備註 (選填)", onkeyup: "autogrow(this);"}
           %td
-            %input.unit_price{name: "bill[0][unit_price]", type: "text"}
+            / %span.show-for-medium-up NT$
+            %input.unit_price{style: "display: inline-block;", name: "bill[0][unit_price]", type: "number", min: 0, step: 'any'}
           %td
-            %input.quantity{name: "bill[0][quantity]", type: "text", value: 1}
+            %input.quantity{name: "bill[0][quantity]", type: "number", min: 1, value: 1}
           %td
             NT$
             %span.total_price
@@ -47,17 +55,33 @@
             .subtotal_c
               總計：NT$
               %span.subtotal 23
+              %span.split.show_splid
+                %br
+                \/
+                %span.splits 23
+                \=
+                %span.split_total 23
+                (均分)
 
-
-
-    %input#bills_c{name: "bill[bills]", type: "hidden", value: 1}
-    %input#payers_c{name: "bill[payers]", type: "hidden", value: 0}
-    = f.text_field :payer
+    %input#bills_c{name: "total[bills]", type: "hidden", value: 1}
+    %input#payers_c{name: "total[payers]", type: "hidden", value: 0}
+    / = f.text_field :payer
   .actions
-    = f.submit 'Save'
+    = link_to '取消', bills_path, class: "button alert"
+    = f.submit '簽發', class: "button"
 
 
 :javascript
+
+  $(document).ready(function() {
+    $(window).keydown(function(event){
+      if(event.keyCode == 13) {
+        event.preventDefault();
+        return false;
+      }
+    });
+  });
+
   function format(friend) {
   console.log(friend)
     if (!friend.id) return id.text;
@@ -69,15 +93,66 @@
     formatSelection: format,
   });
 
-
   function addRow() {
-    $(".bill_row").clone().attr("id","newRowId").appendTo("#bill_table");
+    $("#bill_row_0").clone().attr("id","newRowId").appendTo("#bill_table");
     $("#new_row").appendTo("#bill_table");
+    $("#newRowId textarea").css('height', 'auto');
+    $("#newRowId textarea").val('');
+    $("#newRowId input").val('');
+    $("#newRowId input.quantity").val('1');
     updateFrom();
+  }
+
+  $('#payers').change(updateFromValues);
+
+  function updateFromValues() {
+    if ($('#payers').val()) {
+      $('#payers_c').val($('#payers').val().length);
+    } else {
+      $('#payers_c').val(0);
+    }
+
+    if ($('#payers_c').val() > 1) {
+      $('.split').removeClass('hidden');
+      if ($('input.split:checked').val() == 'split') {
+        if ($('input.add_me').prop('checked')) {
+          split = parseInt($('#payers_c').val()) + 1;
+        } else {
+          split = $('#payers_c').val();
+        }
+        $('.show_splid').removeClass('hidden');
+        $('.show_splid .splits').html(split);
+      } else {
+        split = 1;
+        $('.show_splid').addClass('hidden');
+      }
+    } else {
+      $('.split').addClass('hidden');
+      split = 1;
+    }
+
+    subtotal = 0;
+    console.log('sd');
+    $(".bill_row").each(function(){
+      total_price = $(this).children('td').children('.unit_price').val() * $(this).children('td').children('.quantity').val();
+      $(this).children('td').children('.total_price').val(total_price/split);
+      $(this).children('td').children('span.total_price').html(total_price);
+      subtotal += total_price;
+    });
+
+    $('.subtotal').html(subtotal);
+    if (split > 1) {
+      $('.show_splid .split_total').html(subtotal/split);
+    }
   }
 
   function updateFrom() {
     $('.delete_row_button').bind('click', function(){ $(this).parent().parent().parent().remove(); updateFrom(); });
+    $('input').unbind('keyup');
+    $('input').unbind('keydown');
+    $('input').bind('keyup', updateFromValues);
+    $('input').bind('keydown', updateFromValues);
+    $('input').change(updateFromValues);
     $('#bills_c').val($('.bill_row').length);
     if ($('#bills_c').val() == 1) {
       $('.delete_row_button').addClass('hidden');
@@ -94,7 +169,14 @@
       $(this).children('td').children('.total_price').attr('name', 'bill[' + i + '][total_price]');
       i++;
     });
+    updateFromValues();
   }
   updateFrom();
 
-= link_to 'Back', bills_path
+  function autogrow(textarea){
+    var adjustedHeight=textarea.clientHeight;
+    adjustedHeight=Math.max(textarea.scrollHeight,adjustedHeight);
+    if (adjustedHeight>textarea.clientHeight){
+      textarea.style.height=adjustedHeight+'px';
+    }
+  }

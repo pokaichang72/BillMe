@@ -28,9 +28,20 @@ class BillsController < ApplicationController
   # POST /bills
   # POST /bills.json
   def create
-    @bill = current_user.charges.build(bill_params)
-    @bill.payer = User.find(params[:bill][:payer])
-    pause
+
+    params['payers'].each do |payer_fbid|
+      @payer = User.where({:fbid => payer_fbid}).first_or_create
+      for i in 1..params['bill'].length
+        @bill = current_user.charges.build(params.require('bill').require((i-1).to_s).permit(:name, :description, :unit_price, :quantity, :total_price))
+        @bill.payer = @payer
+        if !@bill.save
+          format.html { render :new }
+        end
+      end
+
+      # params.require('bill').require('0').permit(:name, :description, :unit_price, :quantity, :total_price)
+    end
+
 
     respond_to do |format|
       if @bill.save
