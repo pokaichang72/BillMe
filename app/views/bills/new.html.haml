@@ -54,17 +54,26 @@
           %td
             .subtotal_c
               總計：NT$
-              %span.subtotal 23
+              %span.subtotal 0
               %span.split.show_splid
                 %br
+                每人支付：總額
                 \/
-                %span.splits 23
-                \=
-                %span.split_total 23
+                %span.splits 0
+                \= NT$
+                %span.split_total 0
                 (均分)
+              %span.split.show_no_splid
+                %br
+                合計收取：總額
+                ×
+                %span.splits 0
+                \= NT$
+                %span.split_total 0
 
     %input#bills_c{name: "total[bills]", type: "hidden", value: 1}
     %input#payers_c{name: "total[payers]", type: "hidden", value: 0}
+    %input#splits_to{name: "total[splits_to]", type: "hidden", value: 0}
     / = f.text_field :payer
   .actions
     = link_to '取消', bills_path, class: "button alert"
@@ -115,19 +124,23 @@
     if ($('#payers_c').val() > 1) {
       $('.split').removeClass('hidden');
       if ($('input.split:checked').val() == 'split') {
+        $("input.add_me").removeAttr("disabled");
         if ($('input.add_me').prop('checked')) {
           split = parseInt($('#payers_c').val()) + 1;
         } else {
           split = $('#payers_c').val();
         }
         $('.show_splid').removeClass('hidden');
+        $('.show_no_splid').addClass('hidden');
         $('.show_splid .splits').html(split);
       } else {
+        $("input.add_me").attr("disabled", true);
         split = 1;
         $('.show_splid').addClass('hidden');
       }
     } else {
       $('.split').addClass('hidden');
+      $('.show_no_splid').removeClass('hidden');
       split = 1;
     }
 
@@ -143,7 +156,11 @@
     $('.subtotal').html(subtotal);
     if (split > 1) {
       $('.show_splid .split_total').html(subtotal/split);
+    } else if ($('#payers_c').val() > 1) {
+      $('.show_no_splid .split_total').html(subtotal*$('#payers_c').val());
+      $('.show_no_splid .splits').html($('#payers_c').val());
     }
+    $('input#splits_to').val(split);
   }
 
   function updateFrom() {

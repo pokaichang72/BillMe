@@ -28,30 +28,39 @@ class BillsController < ApplicationController
   # POST /bills
   # POST /bills.json
   def create
+    fail = false
 
     params['payers'].each do |payer_fbid|
       @payer = User.where({:fbid => payer_fbid}).first_or_create
       for i in 1..params['bill'].length
         @bill = current_user.charges.build(params.require('bill').require((i-1).to_s).permit(:name, :description, :unit_price, :quantity, :total_price))
         @bill.payer = @payer
+        @bill.splits_to = params['total']['splits_to']
         if !@bill.save
-          format.html { render :new }
+          fail = true
         end
       end
 
       # params.require('bill').require('0').permit(:name, :description, :unit_price, :quantity, :total_price)
     end
 
-
-    respond_to do |format|
-      if @bill.save
-        format.html { redirect_to @bill, notice: 'Bill was successfully created.' }
-        format.json { render :show, status: :created, location: @bill }
-      else
-        format.html { render :new }
-        format.json { render json: @bill.errors, status: :unprocessable_entity }
-      end
+    if fail
+      flash[:alert] = '儲存失敗。'
+      redirect_to new_bill_path
+    else
+      redirect_to root_path
     end
+
+
+    # respond_to do |format|
+    #   if @bill.save
+    #     format.html { redirect_to @bill, notice: 'Bill was successfully created.' }
+    #     format.json { render :show, status: :created, location: @bill }
+    #   else
+    #     format.html { render :new }
+    #     format.json { render json: @bill.errors, status: :unprocessable_entity }
+    #   end
+    # end
   end
 
   # PATCH/PUT /bills/1
