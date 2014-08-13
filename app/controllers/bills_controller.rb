@@ -7,6 +7,10 @@ class BillsController < ApplicationController
   def index
     @bills = current_user.bills.all
     @charges = current_user.charges.all
+    @debtors = current_user.debtors.all  # 欠我錢的
+    @creditors = current_user.creditors.all  # 我欠錢的
+    @recent_debtors = current_user.recent_debtors.all  # 欠我錢的
+    @recent_creditors = current_user.recent_creditors.all  # 我欠錢的
   end
 
   # GET /bills/1
@@ -36,7 +40,7 @@ class BillsController < ApplicationController
 
     if params['cancel'] == 'true'
       params['bills'].each do |b_id|
-        Bill.find(b_id).delete
+        current_user.charges.find(b_id).delete
       end
     else
 
@@ -81,6 +85,10 @@ class BillsController < ApplicationController
     #     format.json { render json: @bill.errors, status: :unprocessable_entity }
     #   end
     # end
+  end
+
+  def update_state
+    pa
   end
 
   # PATCH/PUT /bills/1

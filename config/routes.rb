@@ -10,6 +10,7 @@ Rails.application.routes.draw do
   root 'bills#index'
 
 
+  post 'bills/update_state', to: 'bills#update_state'
   resources :bills
   post 'cancel', to: 'bills#cancel'
 

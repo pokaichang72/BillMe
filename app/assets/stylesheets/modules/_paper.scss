@@ -102,7 +102,16 @@
 		vertical-align: top;
 	}
 
+	th {
+		vertical-align: bottom;
+	}
+
 	th:first-child, td:first-child {
+		text-align: left;
+		max-width: auto;
+	}
+
+	&.list th:nth-child(2), td:nth-child(2) {
 		text-align: left;
 		max-width: auto;
 	}

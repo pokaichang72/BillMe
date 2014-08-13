@@ -219,6 +219,55 @@ table {
 	}
 }
 
+.detail > td {
+	padding: 0;
+}
+
+.paper.list {
+	margin-left: -2px;
+	margin-right: -2px;
+	margin-top: -2px;
+	bottom: -2px;
+	margin-bottom: 0;
+	@include box-shadow(none);
+}
+
+tr .collapse {
+	width: 20px;
+	height: 20px;
+
+	img {
+		width: 20px;
+		height: 20px;
+	}
+
+	@include transition-property(all);
+	@include transition-duration(.5s);
+}
+
+tr.open .collapse {
+
+	@include rotate(90deg);
+}
+
+tr.detail .paper {
+	max-height: 0;
+	padding: 0;
+	overflow: hidden;
+	padding: inherit;
+	@include transition-property(all);
+	@include transition-duration(.5s);
+}
+
+tr.detail.open .paper {
+	max-height: 99999px;
+	padding: inherit;
+}
+
+table {
+	width: 100%;
+}
+
 // -------------------------------------
 //   Card
 // -------------------------------------

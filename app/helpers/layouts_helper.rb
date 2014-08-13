@@ -10,4 +10,8 @@ module LayoutsHelper
     "https://graph.facebook.com/" + id.to_s + "/picture?width=" + size.to_s + "&height=" + size.to_s
   end
 
+  def state_tag(state)
+    '<span class="label ' + state + '"> ' + state + ' </span>'
+  end
+
 end
