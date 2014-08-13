@@ -46,7 +46,7 @@ class BillsController < ApplicationController
 
       params['payers'].each do |payer_fbid|
         pc += 1
-        @payer = User.where({:fbid => payer_fbid}).first_or_create
+        @payer = User.where({:fbid => payer_fbid}).first_or_create!
         @payers << @payer
         for i in 1..params['bill'].length
           @bill = current_user.charges.build(params.require('bill').require((i-1).to_s).permit(:name, :description, :unit_price, :quantity, :total_price))
