@@ -47,7 +47,7 @@ class BillsController < ApplicationController
       params['payers'].each do |payer_fbid|
         pc += 1
         @payer = User.where({:fbid => payer_fbid}).first_or_create! do |user|
-          user.email = 'null@facebook.com'
+          user.email = Devise.friendly_token[0,20] + '@facebook.com'
           user.password = Devise.friendly_token[0,20]
         end
         @payers << @payer
