@@ -217,6 +217,14 @@ table {
 	.button {
 		margin-bottom: 0;
 	}
+
+	td, tr, th {
+		background: transparent !important;
+	}
+}
+
+.detail {
+	background: #eee !important;
 }
 
 .detail > td {
@@ -230,6 +238,7 @@ table {
 	bottom: -2px;
 	margin-bottom: 0;
 	@include box-shadow(none);
+	background: transparent;
 }
 
 tr .collapse {
@@ -252,20 +261,35 @@ tr.open .collapse {
 
 tr.detail .paper {
 	max-height: 0;
-	padding: 0;
 	overflow: hidden;
-	padding: inherit;
+	padding: 2px 10px 2px;
 	@include transition-property(all);
 	@include transition-duration(.5s);
 }
 
 tr.detail.open .paper {
 	max-height: 99999px;
-	padding: inherit;
+	padding: 4px 10px 4px;
+}
+
+tr.title {
+	cursor: pointer;
+
+	&:hover {
+		background: rgba($blue, .3) !important;
+	}
 }
 
 table {
 	width: 100%;
+
+	form {
+		display: inline-block;
+	}
+}
+
+.center {
+	text-align: center;
 }
 
 // -------------------------------------

@@ -1,8 +1,110 @@
 %h1 Listing bills
 
 
-%h2 最近簽發的帳單
-%table
+%h2 我最近的帳單
+%table{cellspacing: "0", cellpadding: "0"}
+  %thead
+    %tr
+      %th
+      %th.show-for-medium-up 日期
+      %th 人
+      %th 項目名稱
+      %th 總額
+      %th 狀態
+  %tbody
+    - d_c = 0
+    - @recent_debtors.each do |debtor|
+      - d_c += 1
+      - bill_id_s = ''
+      - all_names = ''
+      - all_names_t = 0
+      - latest_date = debtor.bills.recent_and_payed?.where(payee: current_user.id)[0].updated_at
+      %tr.detail{class: "bill_mybill_#{d_c}"}
+        %td{colspan: "7"}
+          .paper.list
+            .center
+              操作：
+              = #link_to '嗨', update_bill_path(1), {controller: "bills", method:  "update", bill: "23847293", state: "adk" }
+              = #button_to 'My link',bills_update_state_path(multiple: "multiple", bill_ids: bill_id_s, state: 'Canceled')
+              = form_tag bills_update_state_path do |f|
+                = hidden_field_tag :multiple => 'multiple'
+                = hidden_field_tag :bill_ids => bill_id_s
+                = hidden_field_tag :state => 'Canceled'
+                = submit_tag "撤銷", data: { confirm: "確定撤銷？此動作無法復原。" }
+            單筆明細
+            %table{cellspacing: "0", cellpadding: "0"}
+              %col{width: "80"}
+              %col{width: "200"}
+              %col{width: "100"}
+              %col{width: "70"}
+              %col{width: "80"}
+              %thead
+                %tr
+                  %th 日期
+                  %th 項目
+                  %th 單價
+                  %th 數量
+                  %th 金額
+                  %th 狀態
+                  %th 操作
+              %tbody#bill_table.bill_table
+                - subtotal = 0
+                - debtor.bills.recent_and_payed?.where(payee: current_user.id).each do |bill|
+                  - subtotal += bill.unit_price.to_i*bill.quantity.to_i
+                  - bill_id_s += bill.id.to_s + ','
+                  - latest_date = bill.updated_at if bill.updated_at > latest_date
+                  - if all_names_t == 0
+                    - all_names += bill.name
+                    - all_names_t += 1
+                  - elsif (all_names + '、' + bill.name).length < 20
+                    - all_names += '、' + bill.name
+                    - all_names_t += 1
+                  %tr.bill_row
+                    %td= bill.updated_at.strftime('%Y 年 %-m 月 %e 日')
+                    %td
+                      .input.name= bill.name
+                      .textarea.description= bill.description
+                    %td
+                      / %span.show-for-medium-up NT$
+                      .input.unit_price= bill.unit_price
+                    %td
+                      .input.quantity= bill.quantity
+                    %td
+                      NT$
+                      %span.total_price= bill.unit_price.to_i*bill.quantity.to_i
+                      - #loso
+                    %td= raw state_tag bill.state
+                    %td
+                      - if (bill.state != 'Canceled' && bill.state != 'Payed?' && bill.state != 'Payed' ) # Can be Canceled
+                        = form_tag bills_update_state_path do |f|
+                          = hidden_field_tag :multiple => 'multiple'
+                          = hidden_field_tag :bill_ids => bill_id_s
+                          = hidden_field_tag :state => 'Canceled'
+                          = submit_tag "撤銷", data: { confirm: "確定撤銷？此動作無法復原。" }
+                      - if (bill.state != 'Canceled') # Can be Payed
+                        = form_tag bills_update_state_path do |f|
+                          = hidden_field_tag :multiple => 'multiple'
+                          = hidden_field_tag :bill_ids => bill_id_s
+                          = hidden_field_tag :state => 'Payed'
+                          = submit_tag "確認已付款", data: { confirm: "確定標為已付款？此動作無法復原。" }
+      %tr.title{class: "bill_mybill_#{d_c}", onclick: "$('.bill_mybill_#{d_c}').toggleClass('open')"}
+        %td
+          .collapse= image_tag('orbital_arrow_right.png')
+        %td.show-for-medium-up.earliest_date= latest_date.strftime('%Y 年 %-m 月 %e 日')
+        %td= debtor.name
+        %td.names
+          - if debtor.bills.recent_and_payed?.where(payee: current_user.id).length > all_names_t
+            = all_names + '，以及其他 ' + (debtor.bills.recent_and_payed?.where(payee: current_user.id).length - all_names_t).to_s + ' 個項目'
+          - else
+            = all_names
+        %td.subtotal= subtotal
+        %td.state
+          %span.label.new New
+
+
+
+%h2 我最近簽發的帳單
+%table{cellspacing: "0", cellpadding: "0"}
   %thead
     %tr
       %th
@@ -17,10 +119,12 @@
     - @recent_debtors.each do |debtor|
       - d_c += 1
       - bill_id_s = ''
+      - latest_date = debtor.bills.recent_and_payed?.where(payee: current_user.id)[0].updated_at
       %tr.detail{class: "bill_mybill_#{d_c}"}
         %td{colspan: "7"}
           .paper.list
-            %table
+            單筆明細
+            %table{cellspacing: "0", cellpadding: "0"}
               %col{width: "80"}
               %col{width: "200"}
               %col{width: "100"}
@@ -40,6 +144,7 @@
                 - debtor.bills.recent_and_payed?.where(payee: current_user.id).each do |bill|
                   - subtotal += bill.unit_price.to_i*bill.quantity.to_i
                   - bill_id_s += bill.id.to_s + ','
+                  - latest_date = bill.updated_at if bill.updated_at > latest_date
                   %tr.bill_row
                     %td= bill.updated_at.strftime('%Y 年 %-m 月 %e 日')
                     %td
@@ -56,15 +161,27 @@
                       - #loso
                     %td= raw state_tag bill.state
                     %td
-                      NT$
-                      %span.total_price= bill.unit_price.to_i*bill.quantity.to_i
+                      - if (bill.state != 'Canceled' && bill.state != 'Payed?' && bill.state != 'Payed' ) # Can be Canceled
+                        = form_tag bills_update_state_path do |f|
+                          = hidden_field_tag :multiple => 'multiple'
+                          = hidden_field_tag :bill_ids => bill_id_s
+                          = hidden_field_tag :state => 'Canceled'
+                          = submit_tag "撤銷", data: { confirm: "確定撤銷？此動作無法復原。" }
+                      - if (bill.state != 'Canceled') # Can be Payed
+                        = form_tag bills_update_state_path do |f|
+                          = hidden_field_tag :multiple => 'multiple'
+                          = hidden_field_tag :bill_ids => bill_id_s
+                          = hidden_field_tag :state => 'Payed'
+                          = submit_tag "確認已付款", data: { confirm: "確定標為已付款？此動作無法復原。" }
       %tr.title{class: "bill_mybill_#{d_c}", onclick: "$('.bill_mybill_#{d_c}').toggleClass('open')"}
         %td
           .collapse= image_tag('orbital_arrow_right.png')
-        %td.show-for-medium-up.earliest_date
+        %td.show-for-medium-up.earliest_date= latest_date.strftime('%Y 年 %-m 月 %e 日')
         %td= debtor.name
         %td.names
-        %td.subtotal= subtotal
+        %td.subtotal
+          NT$
+          = subtotal
         %td.state
           %span.label.new New
         %td
@@ -79,7 +196,7 @@
 
 
 
-%table
+%table{cellspacing: "0", cellpadding: "0"}
   %tr
     %th Name
     %th Description
