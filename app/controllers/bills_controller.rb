@@ -64,10 +64,10 @@ class BillsController < ApplicationController
       flash[:alert] = '儲存失敗。'
       redirect_to new_bill_path
     elsif params['cancel'] == 'true'
-      flash[:info] = '已撤銷。'
+      flash[:success] = '已撤銷。'
       redirect_to bills_path
     else
-      flash[:info] = '已簽發。'
+      flash[:success] = '已簽發。'
       render :create_success
     end
 
