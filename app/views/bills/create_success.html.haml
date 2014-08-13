@@ -1,0 +1,98 @@
+%h1 剛剛簽發的帳單
+
+.paper
+  .to
+    - @payers.each do |payer|
+      = payer.name
+  .split
+    - if @bills_total['payers'].to_i > 1
+      - if @bills_total['splits_to'].to_i == 1
+        個別支付
+      - if @bills_total['payers'].to_i == @bills_total['splits_to'].to_i
+        均分
+      - if @bills_total['payers'].to_i < @bills_total['splits_to'].to_i
+        均分，算我一份
+
+  %table
+    %col{width: "200"}
+    %col{width: "100"}
+    %col{width: "70"}
+    %col{width: "80"}
+    %thead
+      %tr
+        %th 項目
+        %th 單價
+        %th 數量
+        %th 金額
+    %tbody#bill_table.bill_table
+      - subtotal = 0
+      - i = 0
+      - @bills.each do |bill|
+      - if i < @bills_total['bills'].to_i
+        - i += 1
+          - subtotal += bill.unit_price.to_i*bill.quantity.to_i
+          %tr#bill_row_0.bill_row
+            %td
+              .input.name= bill.name
+              .textarea.description= bill.description
+            %td
+              / %span.show-for-medium-up NT$
+              .input.unit_price= bill.unit_price
+            %td
+              .input.quantity= bill.quantity
+            %td
+              NT$
+              %span.total_price= bill.unit_price.to_i*bill.quantity.to_i
+              - #loso
+      %tr#new_row.total_row
+        %td
+        %td
+        %td
+        %td
+          .subtotal_c
+            總計：NT$
+            %span.subtotal= subtotal
+            - if @bills_total['payers'].to_i > 1
+              - if @bills_total['splits_to'].to_i == 1
+                %span.split.show_no_splid
+                  %br
+                  合計收取：總額
+                  ×
+                  %span.splits= @bills_total['payers']
+                  \= NT$
+                  %span.split_total= subtotal*@bills_total['payers'].to_i
+              - else
+                -
+                %span.split.show_splid
+                  %br
+                  每人支付：總額
+                  \/
+                  %span.splits= @bills_total['splits_to']
+                  \= NT$
+                  %span.split_total= subtotal/@bills_total['splits_to'].to_f
+                  (均分)
+  .eol 　
+  .from
+    = current_user.name
+
+
+
+  %input#bills_c{name: "total[bills]", type: "hidden", value: 1}
+  %input#payers_c{name: "total[payers]", type: "hidden", value: 0}
+  %input#splits_to{name: "total[splits_to]", type: "hidden", value: 0}
+  / = f.text_field :payer
+.actions
+
+.actions
+  = form_for @crb do |f|
+    %input#c{name: "cancel", type: "hidden", value: "true"}
+    %select#bills{name: "bills[]", multiple: "multiple", style: "display: none;"}
+      - @bills.each do |bill|
+        %option{value: "#{bill['id']}", selected: "selected"}= bill['id']
+    = f.submit '撤銷', class: "button alert", :data => { :confirm => 'Are you sure?' }
+    　
+    = link_to '返回', bills_path, class: "button"
+  　
+
+  　
+

@@ -29,26 +29,46 @@ class BillsController < ApplicationController
   # POST /bills.json
   def create
     fail = false
+    @bills = []
+    @payers = []
+    @bills_total = params['total']
+    pc = 0
 
-    params['payers'].each do |payer_fbid|
-      @payer = User.where({:fbid => payer_fbid}).first_or_create
-      for i in 1..params['bill'].length
-        @bill = current_user.charges.build(params.require('bill').require((i-1).to_s).permit(:name, :description, :unit_price, :quantity, :total_price))
-        @bill.payer = @payer
-        @bill.splits_to = params['total']['splits_to']
-        if !@bill.save
-          fail = true
-        end
+    if params['cancel'] == 'true'
+      params['bills'].each do |b_id|
+        Bill.find(b_id).delete
       end
+    else
 
-      # params.require('bill').require('0').permit(:name, :description, :unit_price, :quantity, :total_price)
+      params['payers'].each do |payer_fbid|
+        pc += 1
+        @payer = User.where({:fbid => payer_fbid}).first_or_create
+        @payers << @payer
+        for i in 1..params['bill'].length
+          @bill = current_user.charges.build(params.require('bill').require((i-1).to_s).permit(:name, :description, :unit_price, :quantity, :total_price))
+          @bill.payer = @payer
+          @bill.state = "New"
+          @bill.splits_to = params['total']['splits_to']
+          if !@bill.save
+            fail = true
+          end
+          @bills << @bill
+        end
+
+        # params.require('bill').require('0').permit(:name, :description, :unit_price, :quantity, :total_price)
+        @crb = current_user.charges.new
+      end
     end
 
     if fail
       flash[:alert] = '儲存失敗。'
       redirect_to new_bill_path
+    elsif params['cancel'] == 'true'
+      flash[:info] = '已撤銷。'
+      redirect_to bills_path
     else
-      redirect_to root_path
+      flash[:info] = '已簽發。'
+      render :create_success
     end
 
 

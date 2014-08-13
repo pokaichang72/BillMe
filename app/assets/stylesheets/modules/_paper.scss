@@ -42,6 +42,32 @@
 		}
 	}
 
+	.from, .to {
+		position: relative;
+		margin-bottom: 12px;
+		padding: 4px;
+		font-size: 28px;
+		line-height: 40px;
+
+		&::before {
+			content: "TO_ ";
+			font-size: 28px;
+			line-height: 40px;
+			position: relative;
+			display: inline-block;
+			vertical-align: bottom;
+			@include opacity(.7);
+		}
+	}
+
+	.from {
+		text-align: right;
+		&::before {
+			content: "FROM_ ";
+		}
+	}
+
+
 	table, thead {
 		background: transparent;
 		border: none;
@@ -81,7 +107,7 @@
 		max-width: auto;
 	}
 
-	input {
+	input, .input {
 		background-color: transparent;
 		border-top: none;
 		border-right: none;
@@ -96,11 +122,11 @@
 		display: inline-block;
 	}
 
-	input.unit_price, input.quantity {
+	input.unit_price, input.quantity, .input.unit_price, .input.quantity {
 		text-align: right;
 	}
 
-	textarea {
+	textarea.description, .description {
 		resize: none;
 		display: inline;
 		font-style: italic;

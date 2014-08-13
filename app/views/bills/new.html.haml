@@ -1,4 +1,4 @@
-%h1 New bill
+%h1 新帳單
 
 = form_for @bill do |f|
   - if @bill.errors.any?
@@ -70,13 +70,16 @@
                 %span.splits 0
                 \= NT$
                 %span.split_total 0
+    .from
+      = current_user.name
 
     %input#bills_c{name: "total[bills]", type: "hidden", value: 1}
     %input#payers_c{name: "total[payers]", type: "hidden", value: 0}
     %input#splits_to{name: "total[splits_to]", type: "hidden", value: 0}
     / = f.text_field :payer
   .actions
-    = link_to '取消', bills_path, class: "button alert"
+    = link_to '取消', bills_path, class: "button alert", :data => { :confirm => 'Are you sure?' }
+    　
     = f.submit '簽發', class: "button"
 
 
@@ -124,7 +127,7 @@
     if ($('#payers_c').val() > 1) {
       $('.split').removeClass('hidden');
       if ($('input.split:checked').val() == 'split') {
-        $("input.add_me").removeAttr("disabled");
+        $("input.add_me").removeClass("hidden");
         if ($('input.add_me').prop('checked')) {
           split = parseInt($('#payers_c').val()) + 1;
         } else {
@@ -134,13 +137,13 @@
         $('.show_no_splid').addClass('hidden');
         $('.show_splid .splits').html(split);
       } else {
-        $("input.add_me").attr("disabled", true);
+        $("input.add_me").addClass("hidden");
         split = 1;
         $('.show_splid').addClass('hidden');
+        $('.show_no_splid').removeClass('hidden');
       }
     } else {
       $('.split').addClass('hidden');
-      $('.show_no_splid').removeClass('hidden');
       split = 1;
     }
 
