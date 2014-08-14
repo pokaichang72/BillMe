@@ -1,10 +1,10 @@
 %li
   %label 我的帳單
 %li= link_to '儀表板', root_path
-%li= link_to '我簽發的帳單'
-%li= link_to '簽發給我的帳單'
+%li= link_to '我簽發的帳單', bills_my_charges_path
+%li= link_to '簽發給我的帳單', bills_my_bills_path
 %li
   %label 帳戶
 %li= link_to '好友列表', friends_path
-%li= link_to '個人設定'
+%li= link_to '個人設定', settings_path
 %li= link_to '登出', destroy_user_session_path, method: :delete

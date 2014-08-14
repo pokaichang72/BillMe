@@ -91,7 +91,46 @@ class BillsController < ApplicationController
   end
 
   def update_state
-    pa
+    if params.has_key?("multiple")
+      bill_ids = params['bill_ids'].split(',')
+    else
+      bill_ids = [params['bill_id']]
+    end
+
+    has_failed = false
+    bill_ids.each do |bill_id|
+      bill = Bill.find(bill_id)
+      case params['state']
+      when 'Canceled'
+        if bill.payee == current_user && bill.state != 'Canceled' && bill.state != 'Paid?' && bill.state != 'Paid'
+          bill.state = 'Canceled'
+          bill.save
+          flash[:success] = '撤銷成功。'
+        else
+          has_failed = true
+        end
+      when 'Paid'
+        if bill.payee == current_user && bill.state != 'Canceled'
+          bill.state = 'Paid'
+          bill.save
+          flash[:success] = '已確認付款。'
+        else
+          has_failed = true
+        end
+      end
+    end
+
+    if has_failed
+      flash[:alert] = '並非所有操作都能被執行。'
+    end
+
+    redirect_to root_path
+  end
+
+  def my_bills
+  end
+
+  def my_charges
   end
 
   # PATCH/PUT /bills/1
