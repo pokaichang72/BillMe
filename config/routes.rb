@@ -11,8 +11,8 @@ Rails.application.routes.draw do
 
 
   post 'bills/update_state', to: 'bills#update_state'
-  post 'bills/my_bills', to: 'bills#my_bills'
-  post 'bills/my_charges', to: 'bills#my_charges'
+  get 'my_bills', to: 'bills#my_bills'
+  get 'my_charges', to: 'bills#my_charges'
   get 'settings', to: 'settings#edit'
   post 'update_settings', to: 'settings#update'
   resources :bills

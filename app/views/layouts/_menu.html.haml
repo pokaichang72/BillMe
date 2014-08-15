@@ -1,8 +1,9 @@
 %li
   %label 我的帳單
 %li= link_to '儀表板', root_path
-%li= link_to '我簽發的帳單', bills_my_charges_path
-%li= link_to '簽發給我的帳單', bills_my_bills_path
+%li= link_to '簽發新帳單', new_bill_path
+%li= link_to '我簽發的帳單列表', my_charges_path
+%li= link_to '簽發給我的帳單列表', my_bills_path
 %li
   %label 帳戶
 %li= link_to '好友列表', friends_path

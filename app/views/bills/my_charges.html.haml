@@ -1,0 +1,33 @@
+%table{cellspacing: "0", cellpadding: "0"}
+  %col{width: "80"}
+  %col{width: "200"}
+  %col{width: "100"}
+  %col{width: "70"}
+  %col{width: "80"}
+  %thead
+    %tr
+      %th 日期
+      %th 項目
+      %th 付款人
+      %th 單價
+      %th 數量
+      %th 金額
+      %th 狀態
+  %tbody#bill_table.bill_table
+    - @my_charges.each do |bill|
+      %tr.bill_row
+        %td= bill.updated_at.strftime('%Y 年 %-m 月 %e 日')
+        %td
+          .input.name= bill.name
+          .textarea.description= bill.description
+        %td
+          .input.unit_price= bill.payer.name
+        %td
+          / %span.show-for-medium-up NT$
+          .input.unit_price= bill.unit_price
+        %td
+          .input.quantity= bill.quantity
+        %td
+          NT$
+          %span.total_price= bill.unit_price.to_i*bill.quantity.to_i
+        %td= raw state_tag bill.state

@@ -117,6 +117,30 @@ class BillsController < ApplicationController
         else
           has_failed = true
         end
+      when 'Accepted'
+        if bill.payer == current_user && bill.state != 'Canceled' && bill.state != 'Paid' && bill.state != 'Paid?'
+          bill.state = 'Accepted'
+          bill.save
+          flash[:success] = '已承諾付款。'
+        else
+          has_failed = true
+        end
+      when 'Paid?'
+        if bill.payer == current_user && bill.state != 'Canceled'
+          bill.state = 'Paid?'
+          bill.save
+          flash[:success] = '已回報付款。'
+        else
+          has_failed = true
+        end
+      when 'Dispute'
+        if bill.payer == current_user && bill.state != 'Dispute' && bill.state != 'Accepted' && bill.state != 'Canceled' && bill.state != 'Paid?' && bill.state != 'Paid'
+          bill.state = 'Dispute'
+          bill.save
+          flash[:success] = '已標示為異議。'
+        else
+          has_failed = true
+        end
       end
     end
 
@@ -128,9 +152,13 @@ class BillsController < ApplicationController
   end
 
   def my_bills
+    @my_bills = current_user.bills
+    render 'my_bills'
   end
 
   def my_charges
+    @my_charges = current_user.charges
+    render 'my_charges'
   end
 
   # PATCH/PUT /bills/1
