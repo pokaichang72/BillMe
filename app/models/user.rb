@@ -8,7 +8,7 @@ class User < ActiveRecord::Base
   has_many :bills, class_name: "Bill", foreign_key: "payer_id"
 
   has_many :debtors, -> { where(["state = ? or state = ? or state = ? or state = ?", 'New', 'Accepted', 'Dispute', 'Paid?']).uniq }, through: :charges, source: :payer
-  has_many :creditors, -> { where(["state = ? or state = ? or state = ?", 'New', 'Accepted', 'Dispute']).uniq }, through: :bills, source: :payee
+  has_many :creditors, -> { where(["state = ? or state = ? or state = ? or state = ?", 'New', 'Accepted', 'Dispute', 'Paid?']).uniq }, through: :bills, source: :payee
   has_many :recent_debtors, -> { where(["state = ? or state = ? or state = ? or state = ? or bills.updated_at > ?", 'New', 'Accepted', 'Dispute', 'Paid?', (Time.now - 7.days)]).uniq }, through: :charges, source: :payer
   has_many :recent_creditors, -> { where(["state = ? or state = ? or state = ? or bills.updated_at > ?", 'New', 'Accepted', 'Dispute', (Time.now - 7.days)]).uniq }, through: :bills, source: :payee
 

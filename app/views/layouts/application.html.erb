@@ -28,6 +28,10 @@
       <div class="content main-content">
         <aside class="menu left-menu left-off-canvas-menu">
           <ul class="list off-canvas-list">
+            <li class="overview">
+              <div class="out">總共積欠：<div class="money">NT$<%= current_user.bills.in_progress.sum(:total_price) %></div></div>
+              <div class="in">總共未收：<div class="money">NT$<%= current_user.charges.in_progress.sum(:total_price) %></div></div>
+            </li>
             <%= render 'layouts/menu' %>
           </ul>
         </aside>

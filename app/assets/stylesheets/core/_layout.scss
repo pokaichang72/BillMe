@@ -292,6 +292,23 @@ table {
 	text-align: center;
 }
 
+li.overview {
+	padding: 12px;
+	font-size: 12px;
+
+	.in {
+		// color: $red;
+	}
+
+	.out {
+		// color: $green;
+	}
+
+	.money {
+		font-size: 24px;
+	}
+}
+
 // -------------------------------------
 //   Card
 // -------------------------------------

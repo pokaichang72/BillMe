@@ -91,6 +91,8 @@
                               = hidden_field_tag :bill_id, bill.id
                               = hidden_field_tag :state, 'Dispute'
                               = submit_tag "異議", data: { confirm: "確定將「#{bill.name}」標示為異議？" }
+                          - if (bill.state == 'Paid?')
+                            等待帳單簽發人確認中
             .list-actions.center
               操作：
               = #link_to '嗨', update_bill_path(1), {controller: "bills", method:  "update", bill: "23847293", state: "adk" }
