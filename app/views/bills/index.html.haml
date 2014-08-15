@@ -130,7 +130,9 @@
           = raw state_tag 'Paid: ' + p_c.to_s if p_c > 0
 
 
-%h2 我簽發的未結束帳單
+%h2
+  我簽發的未結束帳單
+  %small= link_to '簽發新帳單', new_bill_path
 %table{cellspacing: "0", cellpadding: "0"}
   %thead
     %tr
