@@ -11,7 +11,13 @@ module LayoutsHelper
   end
 
   def state_tag(state)
-    '<span class="label ' + state + '"> ' + state + ' </span>'
+    state_class = state
+    state_class = 'New' if state =~ /^New/
+    state_class = 'Dispute' if state =~ /^Dispute/
+    state_class = 'Accepted' if state =~ /^Accepted/
+    state_class = 'Paid' if state =~ /^Paid/
+    state_class = 'Paid q' if state =~ /^Paid\?/
+    '<span class="label ' + state_class + '"> ' + state + ' </span>'
   end
 
 end

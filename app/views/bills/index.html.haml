@@ -4,7 +4,7 @@
     %tr
       %th
       %th.show-for-medium-up 日期
-      %th 人
+      %th 簽發人
       %th 項目名稱
       %th 總額
       %th 狀態
@@ -27,14 +27,9 @@
             .list
               單筆明細
               %table{cellspacing: "0", cellpadding: "0"}
-                %col{width: "80"}
-                %col{width: "200"}
-                %col{width: "100"}
-                %col{width: "70"}
-                %col{width: "80"}
                 %thead
                   %tr
-                    %th 日期
+                    %th.show-for-medium-up 日期
                     %th 項目
                     %th 單價
                     %th 數量
@@ -61,7 +56,7 @@
                         - all_names += '、' + bill.name
                         - all_names_t += 1
                       %tr.bill_row
-                        %td= bill.updated_at.strftime('%Y 年 %-m 月 %e 日')
+                        %td.show-for-medium-up= bill.updated_at.strftime('%Y 年 %-m 月 %e 日')
                         %td
                           .input.name= bill.name
                           .textarea.description= bill.description
@@ -141,7 +136,7 @@
     %tr
       %th
       %th.show-for-medium-up 日期
-      %th 人
+      %th 付款人
       %th 項目名稱
       %th 總額
       %th 狀態
@@ -164,11 +159,6 @@
             .list
               單筆明細
               %table{cellspacing: "0", cellpadding: "0"}
-                %col{width: "80"}
-                %col{width: "200"}
-                %col{width: "100"}
-                %col{width: "70"}
-                %col{width: "80"}
                 %thead
                   %tr
                     %th 日期

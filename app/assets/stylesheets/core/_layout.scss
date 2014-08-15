@@ -297,16 +297,34 @@ li.overview {
 	font-size: 12px;
 
 	.in {
-		// color: $red;
+		color: $red;
 	}
 
 	.out {
-		// color: $green;
+		color: $green;
 	}
 
 	.money {
 		font-size: 24px;
+		line-height: 20px;
+		margin-bottom: 12px;
 	}
+}
+
+.label.Accepted, .label.Accepted {
+	background-color: $green;
+}
+
+.label.Dispute, .label.Dispute {
+	background-color: $orange;
+}
+
+.label.Paid, .label.Paid {
+	background-color: $violet;
+}
+
+.label.Paid.q, .label.Paid.q {
+	background-color: lighten($violet, 30%);
 }
 
 // -------------------------------------
