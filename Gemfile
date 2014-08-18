@@ -61,10 +61,10 @@ gem 'open_graph_helper', '0.2.0'
 group :development do
   gem 'better_errors', '1.1.0'
   gem 'binding_of_caller', '0.7.2'
-  gem 'sqlite3'
 end
 
 # For Heroku assets
 gem 'rails_12factor', group: :production
+gem 'rb-readline', '0.5.1'
 
 ruby "2.0.0"
